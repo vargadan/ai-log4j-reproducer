@@ -7,13 +7,15 @@ import java.time.Duration;
 
 public class MockServerRunner {
 
-    final static String GIT_REPOSITORY = "sample_rest_responses";
+    final static String GIT_SERVER = "https://bitbucket.org/joergmattes/";
 
-    final static String BRANCH = "master";
+    final static String GIT_REPOSITORY = "rest-integrator-mock-responses/raw";
+
+    final static String BRANCH = "HEAD";
 
     static HttpResponse respondGitContent(String repo, String branch, String file) throws Exception {
         var gitRequest = java.net.http.HttpRequest.newBuilder()
-                .uri(new URI("https://raw.githubusercontent.com/vargadan/" + repo + "/" + branch + "/" + file))
+                .uri(new URI(GIT_SERVER + repo + "/" + branch + "/" + file))
                 .timeout(Duration.ofSeconds(10))
                 .GET().build();
         var gitResponse = java.net.http.HttpClient.newBuilder().build()
