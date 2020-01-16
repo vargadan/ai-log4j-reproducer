@@ -17,9 +17,10 @@ public class MockServerRunner {
 
     final static Consumer<String> logger = System.out::println;
 
-    static HttpResponse respondGitContent(String repo, String branch, String file) throws Exception {
+    static HttpResponse serveGitContent(HttpRequest httpRequest) throws Exception {
+        final String file = httpRequest.getPath() + "/response.json";
         var gitRequest = java.net.http.HttpRequest.newBuilder()
-                .uri(new URI(GIT_SERVER + repo + "/src/" + branch + file))
+                .uri(new URI(GIT_SERVER + GIT_REPOSITORY + "/src/" + BRANCH + file))
                 .timeout(Duration.ofSeconds(10))
                 .GET()
                 .version(HttpClient.Version.HTTP_1_1)
@@ -41,10 +42,17 @@ public class MockServerRunner {
         }
     }
 
+    static HttpResponse extractOauth2Token(HttpRequest request) {
+        logger.accept(request.getBodyAsString());
+        return HttpResponse.response().withStatusCode(200);
+    }
+
     public static void main(String... args) throws Exception {
         var mockServer = ClientAndServer.startClientAndServer(1080);
         mockServer.when(HttpRequest.request().withMethod("GET").withPath("/api/.*"))
-                .respond(httpRequest -> respondGitContent(GIT_REPOSITORY, BRANCH, httpRequest.getPath() + "/response.json"));
+                .respond(MockServerRunner::serveGitContent);
+        mockServer.when(HttpRequest.request().withMethod("GET").withPath("/oauth2/callback"))
+                .respond(MockServerRunner::extractOauth2Token);
     }
 }
 
