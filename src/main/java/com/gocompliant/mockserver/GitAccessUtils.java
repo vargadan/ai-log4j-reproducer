@@ -37,9 +37,9 @@ public class GitAccessUtils {
 
     final static String CLIENT_SECRET = System.getenv("BITBUCKET_CLIENT_SECRET");
 
-    final static private GitRequester gitRequester;
+    static private GitRequester gitRequester;
 
-    static {
+    public static void initAccessToken() {
         String authToken = "";
         try {
             var gitTokens = callGitOauthAccessTokenService();

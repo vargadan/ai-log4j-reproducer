@@ -9,6 +9,7 @@ import org.mockserver.model.HttpResponse;
 public class MockServerRunner {
 
     public static void main(String... args) throws Exception {
+        GitAccessUtils.initAccessToken();
         var mockServer = ClientAndServer.startClientAndServer(1080);
         mockServer.when(HttpRequest.request().withMethod("GET").withPath("/oauth2/callback"))
                 .respond((httpRequest -> HttpResponse.response().withStatusCode(200).withBody("OK")));
