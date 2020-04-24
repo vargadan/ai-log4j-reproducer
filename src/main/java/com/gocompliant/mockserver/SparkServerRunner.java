@@ -7,17 +7,30 @@ import static spark.Spark.*;
 @Slf4j
 public class SparkServerRunner {
 
-    public static void main(String... args) throws Exception {
-        secure("", "", "", "", true);
+    static GitAccess gitAccess = new GitAccess();
+
+    public static void main(String... args) {
+//        secure("", "", "", "", true);
         port(1080);
         get("/oauth2/callback", (request, response) -> "OK");
+        get("/reset", (request, response) -> {
+            try {
+                gitAccess = new GitAccess();
+                response.status(200);
+                return "git access has been reset";
+            } catch (Throwable e) {
+                log.error("Error when fetching git content", e);
+                response.status(500);
+                return "Error when fetching git content: ".concat(e.getMessage());
+            }
+        });
         get("/*", (request, response) -> {
             try {
-                String jsonBody = GitAccessUtils.makeGitRequest(request.pathInfo()).body();
+                String jsonBody = gitAccess.request.apply(request.pathInfo()).body();
                 response.header("Content-Type", "application/json; charset=utf-8");
                 response.status(200);
                 return jsonBody;
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 log.error("Error when fetching git content", e);
                 response.status(500);
                 return "Error when fetching git content: ".concat(e.getMessage());
