@@ -31,10 +31,10 @@ steps:
     tags: |
       $(tag)
 - task: Docker@2
-    displayName: dockerPush
-    inputs:
-      command: push
-      containerRegistry: $(containerRegistryServiceConnection)
-      repository: $(imageRepository)
-      tags: |
-        $(tag)
+  displayName: dockerPush
+  inputs:
+    command: push
+    containerRegistry: $(containerRegistryServiceConnection)
+    repository: $(imageRepository)
+    tags: |
+      $(tag)
