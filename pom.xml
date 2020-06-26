@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.gocompliant</groupId>
-    <artifactId>mock-server</artifactId>
-    <version>1.0</version>
+    <artifactId>mockserver</artifactId>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
