@@ -10,7 +10,7 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'assembly:single'
+    goals: 'package'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     publishJUnitResults: false
