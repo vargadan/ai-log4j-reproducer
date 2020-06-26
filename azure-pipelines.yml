@@ -11,6 +11,7 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'package'
+    jdkVersion: '1.11'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     publishJUnitResults: false
