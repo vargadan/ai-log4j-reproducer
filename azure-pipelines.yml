@@ -18,7 +18,7 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: '11-zulu-alpine'
+      vmImage: 'mcr.microsoft.com/java/jre-headless:11-zulu-alpine'
     steps:
     - task: Docker@2
       displayName: Build an image
