@@ -28,4 +28,32 @@ stages:
         Contents: .artifactignore
         TargetFolder: target
     - publish: $(System.DefaultWorkingDirectory)/target
-      artifact: mockserver-target
+      artifact: target
+
+- stage: Docker
+  jobs:
+  - job: DockerLoginBuildPush
+    steps:
+    - download: current
+      artifact: target
+    - task: Docker@2
+      displayName: dockerLogin
+      inputs:
+        command: login
+        containerRegistry: $(containerRegistryServiceConnection)
+    - task: Docker@2
+      displayName: dockerBuild
+      inputs:
+        repository: $(imageRepository)
+        command: build
+        Dockerfile: Dockerfile
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: dockerPush
+      inputs:
+        command: push
+        containerRegistry: $(containerRegistryServiceConnection)
+        repository: $(imageRepository)
+        tags: |
+          $(tag)
