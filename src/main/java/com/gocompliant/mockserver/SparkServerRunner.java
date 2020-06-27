@@ -11,7 +11,11 @@ public class SparkServerRunner {
 
     public static void main(String... args) {
 //        secure("", "", "", "", true);
-        port(1080);
+        int port = 1080;
+        if (args != null && args.length > 0) {
+            port = Integer.valueOf(args[0]);
+        }
+        port(port);
         get("/oauth2/callback", (request, response) -> "OK");
         get("/reset", (request, response) -> {
             try {
