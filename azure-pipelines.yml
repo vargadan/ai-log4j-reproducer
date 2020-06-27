@@ -34,12 +34,8 @@ stages:
   jobs:
   - job: DockerLoginBuildPush
     steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'current'
-        artifactName: 'target'
-        targetPath: '$(System.DefaultWorkingDirectory)/target'
-
+    - download: current
+      artifact: target
     - script: pwd
     - script: ls -l
     - task: Docker@2
