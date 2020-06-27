@@ -38,7 +38,7 @@ stages:
       inputs:
         buildType: 'current'
         artifactName: 'target'
-        targetPath: '$(System.DefaultWorkingDirectory)'
+        targetPath: '$(System.DefaultWorkingDirectory)/target'
 
     - script: pwd
     - script: ls -l
