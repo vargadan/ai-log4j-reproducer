@@ -23,5 +23,5 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-    - publish: $(System.DefaultWorkingDirectory)/mockserver
-      artifact: mockserver
+    - publish: $(System.DefaultWorkingDirectory)/target
+      artifact: mockserver-target
