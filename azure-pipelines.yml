@@ -62,3 +62,18 @@ stages:
         repository: $(imageRepository)
         tags: |
           $(tag)
+
+- stage: DeployIT
+  displayName: Deploy to IT
+  jobs:
+    # track deployments on the environment
+  - deployment: DeployIT
+    # creates an environment if it doesn't exist
+    environment: 'IT'
+    strategy:
+      # default deployment strategy, more coming...
+      runOnce:
+        deploy:
+          steps:
+          - script: echo my first deployment
+ 
