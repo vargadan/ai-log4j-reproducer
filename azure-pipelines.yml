@@ -38,7 +38,10 @@ stages:
       inputs:
         buildType: 'current'
         artifactName: 'target'
-        targetPath: '$(Pipeline.Workspace)'
+        targetPath: '$(System.DefaultWorkingDirectory)'
+
+    - script: pwd
+    - script: ls -l
     - task: Docker@2
       displayName: dockerLogin
       inputs:
