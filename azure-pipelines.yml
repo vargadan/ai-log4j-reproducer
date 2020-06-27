@@ -3,8 +3,8 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 variables:
-  containerRegistryServiceConnection: dockerhub-gocompliant
-  imageRepository: gocompliant/toolsuite
+  containerRegistryServiceConnection: azure-gocompliant
+  imageRepository: smarthub-mockserver
   tag: 1.0.0
 steps:
 - task: Maven@3
