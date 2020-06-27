@@ -34,8 +34,11 @@ stages:
   jobs:
   - job: DockerLoginBuildPush
     steps:
-    - download: current
-      artifact: target
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'target'
+        targetPath: '$(Pipeline.Workspace)'
     - task: Docker@2
       displayName: dockerLogin
       inputs:
