@@ -6,11 +6,11 @@ variables:
   containerRegistryServiceConnection: azure-gocompliant
   imageRepository: smarthub-mockserver
   tag: 1.0.2
-  
+
 stages:
 - stage: Build
   jobs:
-  - job: Maven Build
+  - job: Maven
     steps:
     - task: Maven@3
       inputs:
@@ -26,7 +26,7 @@ stages:
 
 - stage: Docker
   jobs:
-  - job: Docker Login/Build/Push
+  - job: DockerLoginBuildPush
     steps:
     - task: Docker@2
       displayName: dockerLogin
