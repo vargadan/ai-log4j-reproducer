@@ -23,29 +23,5 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-
-- stage: Docker
-  jobs:
-  - job: DockerLoginBuildPush
-    steps:
-    - task: Docker@2
-      displayName: dockerLogin
-      inputs:
-        command: login
-        containerRegistry: $(containerRegistryServiceConnection)
-    - task: Docker@2
-      displayName: dockerBuild
-      inputs:
-        repository: $(imageRepository)
-        command: build
-        Dockerfile: Dockerfile
-        tags: |
-          $(tag)
-    - task: Docker@2
-      displayName: dockerPush
-      inputs:
-        command: push
-        containerRegistry: $(containerRegistryServiceConnection)
-        repository: $(imageRepository)
-        tags: |
-          $(tag)
+    - publish: $(System.DefaultWorkingDirectory)/mockserver
+      artifact: mockserver
