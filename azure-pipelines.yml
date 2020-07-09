@@ -23,5 +23,57 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
+    - task: CopyFiles@2
+      inputs:
+        Contents: .artifactignore
+        TargetFolder: target
     - publish: $(System.DefaultWorkingDirectory)/target
-      artifact: mockserver-target
+      artifact: target
+
+- stage: Docker
+  jobs:
+  - job: DockerLoginBuildPush
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'target'
+        targetPath: '$(System.DefaultWorkingDirectory)/target'
+    - script: pwd
+    - script: ls -l
+    - task: Docker@2
+      displayName: dockerLogin
+      inputs:
+        command: login
+        containerRegistry: $(containerRegistryServiceConnection)
+    - task: Docker@2
+      displayName: dockerBuild
+      inputs:
+        repository: $(imageRepository)
+        command: build
+        Dockerfile: Dockerfile
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: dockerPush
+      inputs:
+        command: push
+        containerRegistry: $(containerRegistryServiceConnection)
+        repository: $(imageRepository)
+        tags: |
+          $(tag)
+
+- stage: DeployIT
+  displayName: Deploy to IT
+  jobs:
+    # track deployments on the environment
+  - deployment: DeployIT
+    # creates an environment if it doesn't exist
+    environment: 'IT'
+    strategy:
+      # default deployment strategy, more coming...
+      runOnce:
+        deploy:
+          steps:
+          - script: echo my first deployment
+ 
