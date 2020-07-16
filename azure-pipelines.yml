@@ -3,7 +3,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 variables:
-  containerRegistryServiceConnection: azure-gocompliant
+  containerRegistryServiceConnection: azure-gocompliant-docker-registry
   imageRepository: smarthub-mockserver
   tag: latest
 
