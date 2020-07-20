@@ -17,19 +17,18 @@ properties:
   - server: gocompliant.azurecr.io
     username: gocompliant
     password: NpW67o082TKzxFOnwdYq7QcpBwWhj8/r
-  environmentVariables:
-    - name: AZ_USERNAME
-      value: daniel.varga
-    - name: AZ_PERSONAL_ACCESS_TOKEN
-      secureValue: lkemq5frba4lkeu6n5fj556jwg2jnap63w3x6pgvegwmki3fn26a
   restartPolicy: OnFailure
   containers:
     - name: mockservice1
       properties:
-        image: gocompliant.azurecr.io/smarthub-server:latest
-        #command: ['pwsh', '/entrypoint.ps1']
+        image: gocompliant.azurecr.io/mockservice-server:latest
         ports:
           - port: 80
+        environmentVariables:
+          - name: AZ_USERNAME
+            value: daniel.varga
+          - name: AZ_PERSONAL_ACCESS_TOKEN
+            secureValue: lkemq5frba4lkeu6n5fj556jwg2jnap63w3x6pgvegwmki3fn26a
         resources:
           requests:
             cpu: 1.0
