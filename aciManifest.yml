@@ -1,7 +1,10 @@
-apiVersion: 2018-10-01
+apiVersion: 2019-12-01
 location: westeurope
 name: mockservice-test
 type: Microsoft.ContainerInstance/containerGroups
+tags:
+  project: product
+  component: mockservice
 properties:
   osType: Linux
   ipAddress:
@@ -22,6 +25,11 @@ properties:
         #command: ['pwsh', '/entrypoint.ps1']
         ports:
           - port: 80
+        environmentVariables:
+          - name: AZ_USERNAME
+            value: daniel.varga
+          - name: AZ_PERSONAL_ACCESS_TOKEN
+            value: lkemq5frba4lkeu6n5fj556jwg2jnap63w3x6pgvegwmki3fn26a
         resources:
           requests:
             cpu: 1.0
