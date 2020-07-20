@@ -6,7 +6,6 @@ variables:
   containerRegistryServiceConnection: gocompliant-container-registry
   azureARMServiceConnection: smarthub-ARM
   imageRepository: mockservice-server
-  aciManifestFile: aciManifest.yml
   resourceGroupName: smarthub-group
   tag: latest
 
@@ -30,7 +29,7 @@ stages:
       inputs:
         Contents: |
           .artifactignore
-          ${aciManifestFile}
+          aciManifest.yml
         TargetFolder: target
     - publish: $(System.DefaultWorkingDirectory)/target
       artifact: target
@@ -94,5 +93,5 @@ stages:
                 azureSubscription: $(azureARMServiceConnection)
                 scriptType: 'bash'
                 scriptLocation: 'inlineScript'
-                inlineScript: az container create --resource-group $(resourceGroupName) --file $(System.DefaultWorkingDirectory)/target/$(aciManifestFile)
+                inlineScript: az container create --resource-group $(resourceGroupName) --file $(System.DefaultWorkingDirectory)/target/aciManifest.yml
  
