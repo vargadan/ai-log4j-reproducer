@@ -28,7 +28,9 @@ stages:
         sonarQubeRunAnalysis: false
     - task: CopyFiles@2
       inputs:
-        Contents: .artifactignore, aciManifest.yml
+        Contents: |
+          .artifactignore |
+          aciManifest.yml
         TargetFolder: target
     - publish: $(System.DefaultWorkingDirectory)/target
       artifact: target
