@@ -29,7 +29,7 @@ properties:
           - name: AZ_USERNAME
             value: daniel.varga
           - name: AZ_PERSONAL_ACCESS_TOKEN
-            value: lkemq5frba4lkeu6n5fj556jwg2jnap63w3x6pgvegwmki3fn26a
+            secureValue: lkemq5frba4lkeu6n5fj556jwg2jnap63w3x6pgvegwmki3fn26a
         resources:
           requests:
             cpu: 1.0
