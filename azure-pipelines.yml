@@ -6,7 +6,7 @@ variables:
   containerRegistryServiceConnection: gocompliant-container-registry
   azureARMServiceConnection: smarthub-ARM
   imageRepository: mockservice-server
-  aciManifestFile: aciManifest.yml
+  aciManifestFile: ./aciManifest.yml
   resourceGroupName: smarthub-group
   tag: latest
 
@@ -78,11 +78,18 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: AzureCLI@2
-            displayName: 'Deploy to Azure'
-            inputs:
-              azureSubscription: $(azureARMServiceConnection)
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: az container create --resource-group $(resourceGroupName) --file $(aciManifestFile)
+            - task: AzureCLI@2
+              displayName: 'List files'
+              inputs:
+                azureSubscription: $(azureARMServiceConnection)
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: ls -la
+            - task: AzureCLI@2
+              displayName: 'Deploy to Azure'
+              inputs:
+                azureSubscription: $(azureARMServiceConnection)
+                scriptType: 'bash'
+                scriptLocation: 'inlineScript'
+                inlineScript: az container create --resource-group $(resourceGroupName) --file $(aciManifestFile)
  
