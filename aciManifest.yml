@@ -6,7 +6,7 @@ properties:
   osType: Linux
   ipAddress:
     type: Public
-    dnsNameLabel: mockservice.test
+    dnsNameLabel: mockservice-test
     ports:
     - protocol: tcp
       port: '80'
