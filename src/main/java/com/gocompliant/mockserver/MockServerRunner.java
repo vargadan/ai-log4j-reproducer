@@ -10,7 +10,7 @@ import static spark.Spark.port;
 @Slf4j
 public class MockServerRunner {
 
-    static GitAccess gitAccess = new GitAccess();
+    static ResponseReader responseReader = ResponseReader.getInstance();
 
     public static void main(String... args) throws Exception {
         int port = 1080;
@@ -23,7 +23,7 @@ public class MockServerRunner {
         mockServer.when(HttpRequest.request().withMethod("GET").withPath("/reset"))
                 .respond((httpRequest -> {
                     try {
-                        gitAccess = new GitAccess();
+                        responseReader = ResponseReader.getInstance();
                         return HttpResponse.response().withStatusCode(200).withBody("git access has been reset");
                     } catch (Throwable e) {
                         log.error("Error fetching git content.", e);
@@ -33,11 +33,11 @@ public class MockServerRunner {
         mockServer.when(HttpRequest.request().withMethod("GET").withPath("/.*"))
                 .respond((httpRequest -> {
                     try {
-                        var gitResponse = gitAccess.request.apply(httpRequest.getPath().getValue());
+                        var gitResponse = responseReader.read(httpRequest.getPath().getValue());
                         return HttpResponse.response()
-                                .withStatusCode(gitResponse.statusCode())
+                                .withStatusCode(gitResponse.getStatusCode())
                                 .withHeader("Content-Type", "application/json; charset=utf-8")
-                                .withBody(gitResponse.body());
+                                .withBody(gitResponse.getBody());
                     } catch (Throwable e) {
                         log.error("Error fetching git content.", e);
                         return HttpResponse.response().withStatusCode(500);

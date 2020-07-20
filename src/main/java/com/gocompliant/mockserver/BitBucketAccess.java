@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Slf4j
-public class GitAccess {
+public class BitBucketAccess implements ResponseReader {
 
     private final static String GIT_SERVER = "https://api.bitbucket.org/2.0/repositories/joergmattes/";
 
@@ -35,7 +35,7 @@ public class GitAccess {
 
     public final CheckedFunction1<String, HttpResponse<String>> request;
 
-    public GitAccess() {
+    public BitBucketAccess() {
         CheckedFunction1<String, HttpResponse<String>> f = this::makeGitRequest;
         this.request = f.memoized();
         this.gitRequester = new GitRequester();
@@ -46,6 +46,12 @@ public class GitAccess {
     private String refreshToken = null;
 
     private final Object refreshLock = new Object();
+
+    @Override
+    public Response read(String path) throws Throwable {
+        var response = this.request.apply(path);
+        return Response.builder().statusCode(response.statusCode()).body(response.body()).build();
+    }
 
     private class GitRequester {
 

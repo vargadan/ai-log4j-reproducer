@@ -7,10 +7,10 @@ import static spark.Spark.*;
 @Slf4j
 public class SparkServerRunner {
 
-    static GitAccess gitAccess = new GitAccess();
+    static ResponseReader responseReader = ResponseReader.getInstance();
 
     public static void main(String... args) {
-//        secure("", "", "", "", true);
+        secure("", "", "", "", true);
         int port = 1080;
         if (args != null && args.length > 0) {
             port = Integer.valueOf(args[0]);
@@ -19,7 +19,7 @@ public class SparkServerRunner {
         get("/oauth2/callback", (request, response) -> "OK");
         get("/reset", (request, response) -> {
             try {
-                gitAccess = new GitAccess();
+                responseReader = ResponseReader.getInstance();
                 response.status(200);
                 return "git access has been reset";
             } catch (Throwable e) {
@@ -30,10 +30,10 @@ public class SparkServerRunner {
         });
         get("/*", (request, response) -> {
             try {
-                String jsonBody = gitAccess.request.apply(request.pathInfo()).body();
+                var gitResponse = responseReader.read(request.pathInfo());
                 response.header("Content-Type", "application/json; charset=utf-8");
-                response.status(200);
-                return jsonBody;
+                response.status(gitResponse.getStatusCode());
+                return gitResponse.getBody();
             } catch (Throwable e) {
                 log.error("Error when fetching git content", e);
                 response.status(500);
