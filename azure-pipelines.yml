@@ -29,7 +29,7 @@ stages:
     - task: CopyFiles@2
       inputs:
         Contents: |
-          .artifactignore |
+          .artifactignore
           aciManifest.yml
         TargetFolder: target
     - publish: $(System.DefaultWorkingDirectory)/target
