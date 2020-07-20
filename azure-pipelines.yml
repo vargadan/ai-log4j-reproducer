@@ -3,8 +3,11 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 variables:
-  containerRegistryServiceConnection: azure-gocompliant-docker-registry
+  containerRegistryServiceConnection: gocompliant-container-registry
+  azureARMServiceConnection: smarthub-ARM
   imageRepository: mockservice-server
+  aciManifestFile: aciManifest.yml
+  resourceGroupName: smarthub-group
   tag: latest
 
 stages:
@@ -75,5 +78,11 @@ stages:
       runOnce:
         deploy:
           steps:
-          - script: echo my first deployment
+          - task: AzureCLI@2
+            displayName: 'Deploy to Azure'
+            inputs:
+              azureSubscription: $(azureARMServiceConnection)
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: az container create --resource-group $(resourceGroupName) --file $(aciManifestFile)
  

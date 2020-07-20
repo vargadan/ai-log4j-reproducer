@@ -13,13 +13,12 @@ properties:
   imageRegistryCredentials:
   - server: gocompliant.azurecr.io
     username: gocompliant
-    #password: %ACRPASS%
     password: NpW67o082TKzxFOnwdYq7QcpBwWhj8/r
   restartPolicy: OnFailure
   containers:
     - name: smarthub-mockserver1
       properties:
-        image: gocompliant.azurecr.io/smarthub-mockserver:latest
+        image: gocompliant.azurecr.io/smarthub-server:latest
         #command: ['pwsh', '/entrypoint.ps1']
         ports:
           - port: 80
