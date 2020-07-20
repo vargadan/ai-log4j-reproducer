@@ -1,12 +1,12 @@
 apiVersion: 2018-10-01
 location: westeurope
-name: smarthub-mockserver-aci
+name: mockservice-test
 type: Microsoft.ContainerInstance/containerGroups
 properties:
   osType: Linux
   ipAddress:
     type: Public
-    dnsNameLabel: goco-smarthub-mockserver1
+    dnsNameLabel: mockservice.test
     ports:
     - protocol: tcp
       port: '80'
@@ -16,7 +16,7 @@ properties:
     password: NpW67o082TKzxFOnwdYq7QcpBwWhj8/r
   restartPolicy: OnFailure
   containers:
-    - name: smarthub-mockserver1
+    - name: mockservice1
       properties:
         image: gocompliant.azurecr.io/smarthub-server:latest
         #command: ['pwsh', '/entrypoint.ps1']
