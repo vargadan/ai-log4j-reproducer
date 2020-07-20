@@ -78,13 +78,14 @@ stages:
       runOnce:
         deploy:
           steps:
-            - task: AzureCLI@2
-              displayName: 'List files'
+            - task: DownloadPipelineArtifact@2
               inputs:
-                azureSubscription: $(azureARMServiceConnection)
-                scriptType: 'bash'
-                scriptLocation: 'inlineScript'
-                inlineScript: ls -la $(Build.SourcesDirectory)
+                buildType: 'current'
+                artifactName: 'target'
+                targetPath: '$(System.DefaultWorkingDirectory)/target'
+            - script: pwd
+            - script: ls -la
+            - script: ls -la $(System.DefaultWorkingDirectory)/target
             - task: AzureCLI@2
               displayName: 'Deploy to Azure'
               inputs:
