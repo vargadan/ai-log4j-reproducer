@@ -19,7 +19,7 @@ public class MockServerRunner {
         }
         var mockServer = ClientAndServer.startClientAndServer(port);
         mockServer.when(HttpRequest.request().withMethod("GET").withPath("/oauth2/callback"))
-                .respond((httpRequest -> HttpResponse.response().withStatusCode(200).withBody("O.K.")));
+                .respond((httpRequest -> HttpResponse.response().withStatusCode(200).withBody("OK")));
         mockServer.when(HttpRequest.request().withMethod("GET").withPath("/reset"))
                 .respond((httpRequest -> {
                     try {
