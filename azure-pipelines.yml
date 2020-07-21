@@ -2,12 +2,6 @@ trigger:
 - master
 pool:
   vmImage: 'ubuntu-latest'
-variables:
-  containerRegistryServiceConnection: gocompliant-container-registry
-  azureARMServiceConnection: smarthub-ARM
-  imageRepository: mockservice-server
-  resourceGroupName: smarthub-group
-  tag: latest
 
 stages:
 - stage: Build
@@ -31,36 +25,5 @@ stages:
         TargetFolder: target
     - publish: $(System.DefaultWorkingDirectory)/target
       artifact: target
-
-- stage: Docker
-  jobs:
-  - job: DockerLoginBuildPush
-    steps:
-    - task: DownloadPipelineArtifact@2
-      inputs:
-        buildType: 'current'
-        artifactName: 'target'
-        targetPath: '$(System.DefaultWorkingDirectory)/target'
-    - script: pwd
-    - script: ls -l
-    - task: Docker@2
-      displayName: dockerLogin
-      inputs:
-        command: login
-        containerRegistry: $(containerRegistryServiceConnection)
-    - task: Docker@2
-      displayName: dockerBuild
-      inputs:
-        repository: $(imageRepository)
-        command: build
-        Dockerfile: Dockerfile
-        tags: |
-          $(tag)
-    - task: Docker@2
-      displayName: dockerPush
-      inputs:
-        command: push
-        containerRegistry: $(containerRegistryServiceConnection)
-        repository: $(imageRepository)
-        tags: |
-          $(tag)
+    - publish: $(System.DefaultWorkingDirectory)/Dockerfile
+      artifact: Dockerfile
