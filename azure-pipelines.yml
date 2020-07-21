@@ -26,4 +26,4 @@ stages:
     - publish: $(System.DefaultWorkingDirectory)/target
       artifact: target
     - publish: $(System.DefaultWorkingDirectory)/Dockerfile
-      artifact: Dockerfile
+      artifact: docker
