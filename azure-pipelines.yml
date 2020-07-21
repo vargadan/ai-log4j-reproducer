@@ -69,6 +69,7 @@ stages:
 
 - stage: DeployIT
   displayName: Deploy to IT
+  condition: false
   jobs:
     # track deployments on the environment
   - deployment: DeployIT
