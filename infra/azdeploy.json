@@ -1,0 +1,134 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "name": {
+      "type": "string",
+      "defaultValue": "mockservice-test"
+    },
+    "dnsNameLabel": {
+      "type": "string",
+      "defaultValue": "mockservice-test"
+    },
+    "version": {
+      "type": "string",
+      "defaultValue": "gocompliant.azurecr.io/mockservice-server:latest"
+    },
+    "port": {
+      "type": "string",
+      "defaultValue": "80"
+    },
+    "cpuCores": {
+      "type": "string",
+      "defaultValue": "1.0"
+    },
+    "memoryInGb": {
+      "type": "string",
+      "defaultValue": "1"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "westeurope"
+    },
+    "restartPolicy": {
+      "type": "string",
+      "defaultValue": "onfailure",
+      "allowedValues": [
+        "never",
+        "always",
+        "onfailure"
+      ]
+    },
+    "imageRegistryLoginServer": {
+      "type": "string",
+      "defaultValue": "gocompliant.azurecr.io"
+    },
+    "imageRegistryUsername": {
+      "type": "string",
+      "defaultValue": "gocompliant"
+    },
+    "imageRegistryPassword": {
+      "type": "string",
+      "defaultValue": "NpW67o082TKzxFOnwdYq7QcpBwWhj8/r"
+    },
+    "env.AZ_USERNAME": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "env.AZ_PERSONAL_ACCESS_TOKEN": {
+      "type": "string",
+      "defaultValue": ""
+    }
+  },
+  "variables": {
+
+  },
+  "resources": [
+    {
+      "name": "[parameters('name')]",
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2019-12-01",
+      "location": "[parameters('location')]",
+      "tags" : {
+        "project" : "product",
+        "component" : "mockservice"
+      },
+      "properties": {
+        "imageRegistryCredentials": [
+          {
+            "server": "[parameters('imageRegistryLoginServer')]",
+            "username": "[parameters('imageRegistryUsername')]",
+            "password": "[parameters('imageRegistryPassword')]"
+          }
+        ],
+        "containers": [
+          {
+            "name": "[parameters('name')]",
+            "properties": {
+              "image": "[parameters('image')]",
+              "ports": [
+                {
+                  "port": "[parameters('port')]"
+                }
+              ],
+              "resources": {
+                "requests": {
+                  "cpu": "[parameters('cpuCores')]",
+                  "memoryInGb": "[parameters('memoryInGb')]"
+                }
+              },
+              "environmentVariables" : [
+                {
+                  "name" : "AZ_USERNAME",
+                  "value":  "[parameters('env.AZ_USERNAME')]"
+                },
+                {
+                  "name" : "AZ_PERSONAL_ACCESS_TOKEN",
+                  "value" :"[parameters('env.AZ_PERSONAL_ACCESS_TOKEN')]"
+                }
+              ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "restartPolicy": "[parameters('restartPolicy')]",
+        "ipAddress": {
+          "type": "Public",
+          "dnsNameLabel" : "[parameters('dnsNameLabel')]",
+          "ports": [
+            {
+              "protocol": "Tcp",
+              "port": "[parameters('port')]"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "containerIPv4Address": {
+      "type": "string",
+      "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('name'))).ipAddress.ip]"
+    }
+  }
+}

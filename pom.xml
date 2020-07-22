@@ -6,7 +6,18 @@
 
     <groupId>com.gocompliant</groupId>
     <artifactId>mockserver</artifactId>
-    <version>1.0.2</version>
+    <version>0.1-SNAPSHOT</version>
+
+    <distributionManagement>
+        <repository>
+            <id>product-release</id>
+            <url>https://pkgs.dev.azure.com/goco/product/_packaging/product-release/maven/v1</url>
+        </repository>
+        <snapshotRepository>
+            <id>product-snapshot</id>
+            <url>https://pkgs.dev.azure.com/goco/product/_packaging/product-snapshot/maven/v1</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -38,6 +49,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.github.danielflower.mavenplugins</groupId>
+                <artifactId>multi-module-maven-release-plugin</artifactId>
+                <version>3.2.4</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
