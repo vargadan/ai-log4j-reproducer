@@ -39,7 +39,9 @@ steps:
       mavenVersionOption: 'Default'
       mavenAuthenticateFeed: false
       effectivePomSkip: false
-      sonarQubeRunAnalysis: false  
+      sonarQubeRunAnalysis: false
+  - publish: $(System.DefaultWorkingDirectory)/target/maven-archiver/pom.properties
+    artifact: maven
   - bash: |
       #!/bin/bash
       cat ./target/maven-archiver/pom.properties
