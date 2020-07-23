@@ -1,4 +1,4 @@
-package com.gocompliant.mockserver;
+package com.gocompliant.smarthub.mockserver;
 
 import lombok.Builder;
 import lombok.Value;

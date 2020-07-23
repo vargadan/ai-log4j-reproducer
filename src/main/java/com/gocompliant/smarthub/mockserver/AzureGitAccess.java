@@ -1,4 +1,4 @@
-package com.gocompliant.mockserver;
+package com.gocompliant.smarthub.mockserver;
 
 import io.vavr.CheckedFunction1;
 import lombok.extern.slf4j.Slf4j;

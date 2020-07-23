@@ -1,4 +1,4 @@
-package com.gocompliant.mockserver;
+package com.gocompliant.smarthub.mockserver;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mockserver.integration.ClientAndServer;

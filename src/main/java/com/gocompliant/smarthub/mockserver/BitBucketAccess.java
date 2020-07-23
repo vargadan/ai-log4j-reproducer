@@ -1,4 +1,4 @@
-package com.gocompliant.mockserver;
+package com.gocompliant.smarthub.mockserver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.CheckedFunction1;
