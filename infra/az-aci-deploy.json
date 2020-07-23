@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "dnsNameLabel": {
-      "type": "string",
+      "type": "string"
     },
     "port": {
       "type": "string",
@@ -45,7 +45,7 @@
   },
   "variables": {
     "name": "${project.artifactId}",
-    "image": "[concat('gocompliant.azurecr.io/${project.artifactId}:', '${project.version}')]",
+    "image": "[concat('gocompliant.azurecr.io/${project.artifactId}:', '${project.version}')]"
   },
   "resources": [
     {
@@ -56,7 +56,7 @@
       "tags" : {
         "project" : "product",
         "groupId" : "${project.groupId}",
-        "artifactId" : "${project.artifactId}",
+        "artifactId" : "${project.artifactId}"
       },
       "properties": {
         "imageRegistryCredentials": [
