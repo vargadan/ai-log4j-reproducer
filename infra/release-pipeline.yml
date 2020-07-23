@@ -15,6 +15,8 @@ steps:
   - bash: |
         #!/bin/bash
         touch $(localMavenSettingFile)
+        env | grep GIT_ACCESS_TOKEN
+        export | grep GIT_ACCESS_TOKEN
         echo '<settings>' >> $(localMavenSettingFile)
         echo '  <servers>' >> $(localMavenSettingFile)
         echo '      <server>' >> $(localMavenSettingFile)
