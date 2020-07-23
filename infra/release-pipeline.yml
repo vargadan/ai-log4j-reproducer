@@ -42,7 +42,7 @@ steps:
       sonarQubeRunAnalysis: false
   - publish: $(System.DefaultWorkingDirectory)/target/maven-archiver/pom.properties
     artifact: maven
-  - publish: $(System.DefaultWorkingDirectory)/infra/az-azi-deploy.json
+  - publish: $(System.DefaultWorkingDirectory)/target/infra/az-azi-deploy.json
     artifact: infra
   - bash: |
       #!/bin/bash
