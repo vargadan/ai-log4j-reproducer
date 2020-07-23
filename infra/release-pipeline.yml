@@ -71,6 +71,6 @@ steps:
     inputs:
       containerRegistry: 'gocompliant-container-registry'
       repository: 'mockservice-server'
-      Dockerfile: '$(System.DefaultWorkingDirectory)/infra/Dockerfile'
+      Dockerfile: '$(System.DefaultWorkingDirectory)/target/infra/Dockerfile'
       buildContext: '$(System.DefaultWorkingDirectory)'
       tags: '$(version)'
