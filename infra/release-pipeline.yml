@@ -15,8 +15,6 @@ steps:
   - bash: |
         #!/bin/bash
         touch $(localMavenSettingFile)
-        env | grep GIT_ACCESS_TOKEN
-        export | grep GIT_ACCESS_TOKEN
         echo '<settings>' >> $(localMavenSettingFile)
         echo '  <servers>' >> $(localMavenSettingFile)
         echo '      <server>' >> $(localMavenSettingFile)
@@ -45,7 +43,8 @@ steps:
       sonarQubeRunAnalysis: false
   - bash: |
       #!/bin/bash
-      cat ls -la $(System.DefaultWorkingDirectory)/target/infra/az-aci-deploy.json
+      ls -la $(System.DefaultWorkingDirectory)/target/infra/
+      cat $(System.DefaultWorkingDirectory)/target/infra/az-aci-deploy.json
     displayName: 'Show az-aci-deploy.json'
   - publish: $(System.DefaultWorkingDirectory)/target/infra/az-aci-deploy.json
     artifact: infra
