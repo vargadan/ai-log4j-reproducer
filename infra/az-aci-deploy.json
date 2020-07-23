@@ -2,17 +2,8 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "name": {
-      "type": "string",
-      "defaultValue": "mockservice-test"
-    },
     "dnsNameLabel": {
       "type": "string",
-      "defaultValue": "mockservice-test"
-    },
-    "version": {
-      "type": "string",
-      "defaultValue": "gocompliant.azurecr.io/mockservice-server:latest"
     },
     "port": {
       "type": "string",
@@ -39,44 +30,38 @@
         "onfailure"
       ]
     },
-    "imageRegistryLoginServer": {
-      "type": "string",
-      "defaultValue": "gocompliant.azurecr.io"
-    },
     "imageRegistryUsername": {
-      "type": "string",
-      "defaultValue": "gocompliant"
+      "type": "string"
     },
     "imageRegistryPassword": {
-      "type": "string",
-      "defaultValue": "NpW67o082TKzxFOnwdYq7QcpBwWhj8/r"
+      "type": "string"
     },
     "env.AZ_USERNAME": {
-      "type": "string",
-      "defaultValue": ""
+      "type": "string"
     },
     "env.AZ_PERSONAL_ACCESS_TOKEN": {
-      "type": "string",
-      "defaultValue": ""
+      "type": "string"
     }
   },
   "variables": {
-
+    "name": "${project.artifactId}",
+    "image": "[concat('gocompliant.azurecr.io/${project.artifactId}:', parameters('version'))]",
   },
   "resources": [
     {
-      "name": "[parameters('name')]",
+      "name": "[parameters('name')",
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
       "location": "[parameters('location')]",
       "tags" : {
         "project" : "product",
-        "component" : "mockservice"
+        "groupId" : "${project.groupId}",
+        "artifactId" : "${project.artifactId}",
       },
       "properties": {
         "imageRegistryCredentials": [
           {
-            "server": "[parameters('imageRegistryLoginServer')]",
+            "server": "gocompliant.azurecr.io",
             "username": "[parameters('imageRegistryUsername')]",
             "password": "[parameters('imageRegistryPassword')]"
           }
@@ -85,7 +70,7 @@
           {
             "name": "[parameters('name')]",
             "properties": {
-              "image": "[parameters('image')]",
+              "image": "[variables('image')]",
               "ports": [
                 {
                   "port": "[parameters('port')]"

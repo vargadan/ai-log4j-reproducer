@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.gocompliant</groupId>
-    <artifactId>mockserver</artifactId>
+    <groupId>com.gocompliant.smarthub</groupId>
+    <artifactId>mockservice-server</artifactId>
     <version>0.1-SNAPSHOT</version>
 
     <distributionManagement>
@@ -91,6 +91,31 @@
                             <outputDirectory>
                                 ${project.build.directory}/dependency-jars/
                             </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/infra</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>infra</directory>
+                                    <excludes>
+                                        <exclude>*-pipeline.yml</exclude>
+                                    </excludes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
