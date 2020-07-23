@@ -45,11 +45,11 @@
   },
   "variables": {
     "name": "${project.artifactId}",
-    "image": "[concat('gocompliant.azurecr.io/${project.artifactId}:', ${project.version})]",
+    "image": "[concat('gocompliant.azurecr.io/${project.artifactId}:', '${project.version}')]",
   },
   "resources": [
     {
-      "name": "[parameters('name')",
+      "name": "[variables('name')",
       "type": "Microsoft.ContainerInstance/containerGroups",
       "apiVersion": "2019-12-01",
       "location": "[parameters('location')]",
@@ -68,7 +68,7 @@
         ],
         "containers": [
           {
-            "name": "[parameters('name')]",
+            "name": "[variables('name')]",
             "properties": {
               "image": "[variables('image')]",
               "ports": [
@@ -113,7 +113,7 @@
   "outputs": {
     "containerIPv4Address": {
       "type": "string",
-      "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', parameters('name'))).ipAddress.ip]"
+      "value": "[reference(resourceId('Microsoft.ContainerInstance/containerGroups/', variables('name'))).ipAddress.ip]"
     }
   }
 }
