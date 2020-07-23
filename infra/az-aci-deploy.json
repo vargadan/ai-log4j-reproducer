@@ -45,7 +45,7 @@
   },
   "variables": {
     "name": "${project.artifactId}",
-    "image": "[concat('gocompliant.azurecr.io/${project.artifactId}:', parameters('version'))]",
+    "image": "[concat('gocompliant.azurecr.io/${project.artifactId}:', ${project.version})]",
   },
   "resources": [
     {
