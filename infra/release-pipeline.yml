@@ -41,14 +41,6 @@ steps:
       mavenAuthenticateFeed: false
       effectivePomSkip: false
       sonarQubeRunAnalysis: false
-  - bash: |
-      #!/bin/bash
-      ls -la $(System.DefaultWorkingDirectory)/target/infra/
-      cat $(System.DefaultWorkingDirectory)/target/infra/az-aci-deploy.json
-    displayName: 'Show az-aci-deploy.json'
-  - publish: $(System.DefaultWorkingDirectory)/target/infra/az-aci-deploy.json
-    artifact: infra
-    displayName: 'Package az-aci-deploy.json'
   - publish: $(System.DefaultWorkingDirectory)/target/maven-archiver/pom.properties
     artifact: maven
     displayName: 'Package pom.properties'
@@ -70,7 +62,7 @@ steps:
     displayName: 'Build and push container image'
     inputs:
       containerRegistry: 'gocompliant-container-registry'
-      repository: 'mockservice-server'
+      repository: '$($artifactId)'
       Dockerfile: '$(System.DefaultWorkingDirectory)/target/infra/Dockerfile'
       buildContext: '$(System.DefaultWorkingDirectory)'
       tags: '$(version)'
