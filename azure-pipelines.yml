@@ -1,8 +1,3 @@
-trigger:
-  - master
-  - develop
-  - *
-
 pool:
   vmImage: 'ubuntu-18.04'
 
