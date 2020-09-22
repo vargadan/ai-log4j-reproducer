@@ -3,6 +3,11 @@ trigger: none
 pool:
   vmImage: 'ubuntu-18.04'
 
+parameters:
+  - name: skipTests
+    type: boolean
+    default: false
+
 resources:
   repositories:
     - repository: infa-repo
@@ -11,3 +16,6 @@ resources:
 
 jobs:
   - template: az/pipeline/release-with-docker.yaml@infa-repo
+    parameters:
+      additionalMavenOptions: -DskipTests=${{parameters.skipTests}}
+      containerRepository: mockservice-server
