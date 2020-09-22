@@ -2,7 +2,7 @@ FROM adoptopenjdk/openjdk11:alpine-jre
 
 RUN mkdir -p /usr/local/mockserver/dependency-jars
 
-ADD ./target/${project.artifactId}-${project.version}.jar /usr/local/mockserver/mockserver.jar
+ADD ./target/mockserver-*.jar /usr/local/mockserver/mockserver.jar
 ADD ./target/dependency-jars/** /usr/local/mockserver/dependency-jars/
 
 EXPOSE 80
