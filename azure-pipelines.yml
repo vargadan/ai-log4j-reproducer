@@ -1,29 +1,30 @@
 trigger:
-- master
+  - master
+  - develop
+  - *
+
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-18.04'
+
+parameters:
+  - name: skipTests
+    type: boolean
+    default: false
+
+resources:
+  repositories:
+    - repository: infra-repo
+      type: git
+      name: infrastructure
 
 stages:
-- stage: Build
-  jobs:
-  - job: Maven
-    steps:
-    - task: Maven@3
-      inputs:
-        mavenPomFile: 'pom.xml'
-        goals: 'package'
-        jdkVersion: '1.11'
-        javaHomeOption: 'JDKVersion'
-        mavenVersionOption: 'Default'
-        publishJUnitResults: false
-        mavenAuthenticateFeed: false
-        effectivePomSkip: false
-        sonarQubeRunAnalysis: false
-    - task: CopyFiles@2
-      inputs:
-        Contents: .artifactignore
-        TargetFolder: target
-    - publish: $(System.DefaultWorkingDirectory)/target
-      artifact: target
-    - publish: $(System.DefaultWorkingDirectory)/infra/Dockerfile
-      artifact: docker
+  - stage: BuildTestAndPackage
+    jobs:
+      - job: MavenAndDocker
+        steps:
+          - template: az/pipeline/maven-and-docker.yaml@infra-repo
+            parameters:
+              projectDir: $(System.DefaultWorkingDirectory)
+              mavenGoals: deploy
+              additionalMavenOptions: -DskipTests=${{parameters.skipTests}}
+              containerRepository: smarthub-server-$(Build.SourceBranchName)
