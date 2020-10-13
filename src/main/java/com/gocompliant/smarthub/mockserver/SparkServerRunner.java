@@ -2,6 +2,8 @@ package com.gocompliant.smarthub.mockserver;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.stream.Collectors;
+
 import static spark.Spark.*;
 
 @Slf4j
@@ -18,7 +20,9 @@ public class SparkServerRunner {
         get("/oauth2/callback", (request, response) -> "OK");
         get("/health", (request, response) -> "OK");
         get("/ip", (request, response) -> request.ip());
-        get("/headers", (request, response) -> request.headers());
+        get("/headers", (request, response) -> request.headers().stream()
+                .map(n -> n + ": " + request.headers(n))
+                .collect(Collectors.joining("; ")));
         get("/reset", (request, response) -> {
             try {
                 responseReader = ResponseReader.getInstance();
