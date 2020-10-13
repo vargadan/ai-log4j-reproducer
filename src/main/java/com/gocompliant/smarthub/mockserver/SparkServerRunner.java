@@ -10,7 +10,6 @@ public class SparkServerRunner {
     static ResponseReader responseReader = ResponseReader.getInstance();
 
     public static void main(String... args) {
-        secure("", "", "", "", true);
         int port = 1080;
         if (args != null && args.length > 0) {
             port = Integer.valueOf(args[0]);
