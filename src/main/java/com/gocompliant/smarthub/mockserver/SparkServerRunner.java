@@ -17,6 +17,9 @@ public class SparkServerRunner {
         }
         port(port);
         get("/oauth2/callback", (request, response) -> "OK");
+        get("/health", (request, response) -> "OK");
+        get("/ip", (request, response) -> request.ip());
+        get("/headers", (request, response) -> request.headers());
         get("/reset", (request, response) -> {
             try {
                 responseReader = ResponseReader.getInstance();

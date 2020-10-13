@@ -5,8 +5,6 @@ import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 
-import static spark.Spark.port;
-
 @Slf4j
 public class MockServerRunner {
 

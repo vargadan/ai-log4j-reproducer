@@ -70,7 +70,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.gocompliant.smarthub.mockserver.MockServerRunner</mainClass>
+                            <mainClass>com.gocompliant.smarthub.mockserver.SparkServerRunner</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>
