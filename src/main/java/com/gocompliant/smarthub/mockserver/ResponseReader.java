@@ -12,7 +12,7 @@ public interface ResponseReader {
         String body;
     }
 
-    static ResponseReader getInstance() {
+    static ResponseReader newInstance() {
         return new AzureGitAccess();
     }
 

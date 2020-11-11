@@ -9,7 +9,7 @@ import static spark.Spark.*;
 @Slf4j
 public class SparkServerRunner {
 
-    static ResponseReader responseReader = ResponseReader.getInstance();
+    static ResponseReader responseReader = ResponseReader.newInstance();
 
     public static void main(String... args) {
         int port = 1080;
@@ -25,7 +25,7 @@ public class SparkServerRunner {
                 .collect(Collectors.joining("; ")));
         get("/reset", (request, response) -> {
             try {
-                responseReader = ResponseReader.getInstance();
+                responseReader = ResponseReader.newInstance();
                 response.status(200);
                 return "git access has been reset";
             } catch (Throwable e) {

@@ -8,7 +8,7 @@ import org.mockserver.model.HttpResponse;
 @Slf4j
 public class MockServerRunner {
 
-    static ResponseReader responseReader = ResponseReader.getInstance();
+    static ResponseReader responseReader = ResponseReader.newInstance();
 
     public static void main(String... args) throws Exception {
         int port = 1080;
@@ -23,7 +23,7 @@ public class MockServerRunner {
         mockServer.when(HttpRequest.request().withMethod("GET").withPath("/reset"))
                 .respond((httpRequest -> {
                     try {
-                        responseReader = ResponseReader.getInstance();
+                        responseReader = ResponseReader.newInstance();
                         return HttpResponse.response().withStatusCode(200).withBody("git access has been reset");
                     } catch (Throwable e) {
                         log.error("Error fetching git content.", e);
