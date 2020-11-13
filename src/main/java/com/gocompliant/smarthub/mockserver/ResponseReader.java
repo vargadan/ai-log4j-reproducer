@@ -13,7 +13,7 @@ public interface ResponseReader {
     }
 
     static ResponseReader newInstance() {
-        return new AzureGitAccess();
+        return new AzureGitAccess(false);
     }
 
     Response read(String path) throws Throwable;

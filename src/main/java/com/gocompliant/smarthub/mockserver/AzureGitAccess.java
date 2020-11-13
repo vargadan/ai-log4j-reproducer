@@ -31,9 +31,9 @@ public class AzureGitAccess implements ResponseReader {
 
     public final CheckedFunction1<String, HttpResponse<String>> request;
 
-    {
+    public AzureGitAccess(boolean caching) {
         CheckedFunction1<String, HttpResponse<String>> f = this::makeContentRequest;
-        this.request = f.memoized();
+        this.request = caching ? f.memoized() : f;
     }
 
     @Override
