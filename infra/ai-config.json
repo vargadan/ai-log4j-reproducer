@@ -1,0 +1,11 @@
+{
+  "instrumentation": {
+    "logging": {
+      "level": "INFO"
+    }
+  },
+  "selfDiagnostics": {
+    "destination": "console",
+    "level": "INFO"
+  }
+}

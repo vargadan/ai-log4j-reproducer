@@ -1,0 +1,6 @@
+# this is filter for the docker build context;
+# otherwise all /src and /target is added and docker build initialization takes very long
+*/
+!/infra/*.sh
+!/target/*.jar
+!/target/dependency-jars/*.jar

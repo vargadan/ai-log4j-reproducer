@@ -4,31 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.gocompliant.smarthub</groupId>
-    <artifactId>mockservice-server</artifactId>
+    <groupId>com.vargadan.playground</groupId>
+    <artifactId>ai-log4j-reproducer</artifactId>
     <version>0.1-SNAPSHOT</version>
-
-    <distributionManagement>
-        <repository>
-            <id>product-release</id>
-            <url>https://pkgs.dev.azure.com/goco/product/_packaging/product-release/maven/v1</url>
-        </repository>
-        <snapshotRepository>
-            <id>product-snapshot</id>
-            <url>https://pkgs.dev.azure.com/goco/product/_packaging/product-snapshot/maven/v1</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <dependencies>
         <dependency>
             <groupId>io.vavr</groupId>
             <artifactId>vavr</artifactId>
             <version>0.10.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mock-server</groupId>
-            <artifactId>mockserver-netty</artifactId>
-            <version>5.8.1</version>
         </dependency>
         <dependency>
             <groupId>com.sparkjava</groupId>
@@ -41,9 +25,24 @@
             <version>1.18.10</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.30</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.14.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.14.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.14.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.4.2</version>
         </dependency>
     </dependencies>
 
@@ -70,7 +69,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.gocompliant.smarthub.mockserver.MockServerRunner</mainClass>
+                            <mainClass>com.vargadan.playground.AiLog4jLoggingIssueReproducer</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>

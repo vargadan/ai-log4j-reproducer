@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="log4j2appender">STDOUT</Property>
+        <Property name="stdoutpattern" value="%highlight{%d{HH:mm:ss} %-5p %-7.-7X{userId} %-40.40c{1.3.}| %m%n}" />
+        <Property name="filepattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %-7.-7X{userId} %-40.40c{1.3.}| %m%n" />
+    </Properties>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false" pattern="${sys:stdoutpattern}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="com" level="debug"/>
+        <asyncRoot level="trace">
+            <AppenderRef ref="${sys:log4j2appender}"/>
+        </asyncRoot>
+    </Loggers>
+</Configuration>
